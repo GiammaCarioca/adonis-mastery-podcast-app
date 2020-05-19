@@ -1,0 +1,68 @@
+@layout('layouts.app')
+
+@section('content')
+  @set('title', 'Login')
+
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-4 is-offset-4">
+          <h2 class="title has-text-centered">Welcome back!</h2>
+
+          @include('partials._notification')
+
+        <form action="{{ route('login') }}" method="post">
+            {{ csrfField() }}
+
+            <div class="field">
+              <label class="label" for="">Email</label>
+
+              <div class="control">
+                <input
+                  type="email"
+                  class="input{{ hasErrorFor('email') ? ' is-danger' : '' }}"
+                  name="email"
+                >
+              </div>
+
+              {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+            </div>
+
+            <div class="field">
+              <label class="label" for="">Password</label>
+
+              <div class="control">
+                <input
+                  type="password"
+                  class="input{{ hasErrorFor('password') ? ' is-danger' : '' }}"
+                  name="password"
+                >
+              </div>
+
+              {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+            </div>
+
+            <div class="field">
+              <label class="checkbox" for="">
+                <input type="checkbox" name="remember">
+                Remember me
+              </label>
+            </div>
+
+            <div class="control">
+              <button type="submit" class="button is-primary is-fullwidth">Login</button>
+            </div>
+          </form>
+
+          <div class="has-text-centered" style="margin-top: 20px">Already got an account?
+            <a href="/password/reset">Forgot password?</a>
+            <p>
+              Don't have an account? <a href="/register">Register</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+@endsection

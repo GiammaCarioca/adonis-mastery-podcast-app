@@ -1,0 +1,72 @@
+@layout('layouts.app')
+
+@section('content')
+  @set('title', 'Register')
+
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-4 is-offset-4">
+          <h2 class="title has-text-centered">Register, it's free!</h2>
+
+        <form action="{{ route('register') }}" method="post">
+            {{ csrfField() }}
+
+            <div class="field">
+              <label class="label" for="">Name</label>
+
+              <div class="control">
+                <input
+                  type="text"
+                  class="input{{ hasErrorFor('name') ? ' is-danger' : '' }}"
+                  name="name"
+                  value="{{ old('name', '') }}"
+                >
+              </div>
+
+              {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('name'), hasErrorFor('name')) }}
+            </div>
+
+            <div class="field">
+              <label class="label" for="">Email</label>
+
+              <div class="control">
+                <input
+                  type="email"
+                  class="input{{ hasErrorFor('email') ? ' is-danger' : '' }}"
+                  name="email"
+                  value="{{ old('email', '') }}"
+                >
+              </div>
+
+              {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('email'), hasErrorFor('email')) }}
+            </div>
+
+            <div class="field">
+              <label class="label" for="">Password</label>
+
+              <div class="control">
+                <input
+                  type="password"
+                  class="input{{ hasErrorFor('password') ? ' is-danger' : '' }}"
+                  name="password"
+                >
+              </div>
+
+              {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('password'), hasErrorFor('password')) }}
+            </div>
+
+            <div class="control">
+              <button type="submit" class="button is-primary is-fullwidth">Create Account</button>
+            </div>
+          </form>
+
+          <div class="has-text-centered" style="margin-top: 20px">Already got an account?
+            <a href="/login">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+@endsection
