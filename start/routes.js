@@ -27,3 +27,7 @@ Route.get("password/reset", "Auth/PasswordResetController.showLinkRequestForm");
 Route.post("password/email", "Auth/PasswordResetController.sendResetLinkEmail");
 Route.get("password/reset/:token", "Auth/PasswordResetController.showResetForm");
 Route.post("password/reset", "Auth/PasswordResetController.reset");
+Route.group(() => {
+  Route.get('/account', 'UserController.showEditAccount').as('settings.account')
+  Route.put('/account', 'UserController.updateAccount')
+}).prefix('/settings')
