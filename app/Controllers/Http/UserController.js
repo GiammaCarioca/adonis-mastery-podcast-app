@@ -1,6 +1,7 @@
 'use strict'
 
 const { validateAll} = use('Validator')
+const Hash = use('Hash')
 
 class UserController {
   showEditAccount ({ view }) {
@@ -28,6 +29,62 @@ class UserController {
       notification: {
         type: 'success',
         message: 'Account updated!'
+      }
+    })
+
+    return response.redirect('back')
+  }
+
+  showChangePassword ({ view }) {
+    return view.render('users.password')
+  }
+
+  async updatePassword ({ request, response, session, auth }) {
+    const data = request.only([
+      'current_password',
+      'new_password',
+      'new_password_confirmation'
+    ])
+
+    const validation = await validateAll(data, {
+      current_password: 'required',
+      new_password: 'required|confirmed'
+    })
+
+    if (validation.fails()) {
+      session.withErrors(validation.messages())
+        .flashExcept([
+          'current_password',
+          'new_password',
+          'new_password_confirmation'
+        ])
+
+      return response.redirect('back')
+    }
+
+    const verifyPassword = await Hash.verify(
+      data.current_password,
+      auth.user.password
+    )
+
+    if (!verifyPassword) {
+      session.flash({
+        notification: {
+          type: 'danger',
+          message: 'Current password could not be verified! Please try again.'
+        }
+      })
+
+      return response.redirect('back')
+    }
+
+    auth.user.password = data.new_password
+    await auth.user.save()
+
+    session.flash({
+      notification: {
+        type: 'success',
+        message: 'Password changed!'
       }
     })
 
