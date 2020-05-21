@@ -62,6 +62,57 @@ class PasswordResetController {
       return response.redirect('back')
     }
   }
+
+  showResetForm ({ view, params }) {
+    return view.render('auth.passwords.reset', { token: params.token })
+  }
+
+  async reset ({ request, session, response }) {
+    const validation = await validateAll(request.all(), {
+      token: 'required',
+      password: 'required|confirmed'
+    })
+
+    if (validation.fails()) {
+      session.withErrors(validation.messages()).flashExcept(['password', 'password_confirmation'])
+
+      return response.redirect('back')
+    }
+
+    try {
+      const token = await Token.query()
+        .where('token', decodeURIComponent(request.input('token')))
+        .where('type', 'password')
+        .first()
+
+        const user = await User.find(token.user_id)
+
+        user.password = request.input('password')
+        await user.save()
+
+        await token.delete()
+
+        Event.fire('password::reset', { user: user.toJSON() })
+
+        session.flash({
+          notification: {
+            type: 'success',
+            message: 'Your password has been reset!'
+          }
+        })
+
+        return response.redirect('/login')
+    } catch (error) {
+      session.flash({
+        notification: {
+          type: 'danger',
+          message: 'Invalid password reset token.'
+        }
+      })
+
+      return response.redirect('back')
+    }
+  }
 }
 
 module.exports = PasswordResetController

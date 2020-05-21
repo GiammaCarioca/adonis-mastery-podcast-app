@@ -25,3 +25,5 @@ Route.get("login", "Auth/LoginController.showLogin");
 Route.post("login", "Auth/LoginController.login").as('login');
 Route.get("password/reset", "Auth/PasswordResetController.showLinkRequestForm");
 Route.post("password/email", "Auth/PasswordResetController.sendResetLinkEmail");
+Route.get("password/reset/:token", "Auth/PasswordResetController.showResetForm");
+Route.post("password/reset", "Auth/PasswordResetController.reset");
