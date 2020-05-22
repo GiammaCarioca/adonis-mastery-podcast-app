@@ -1,0 +1,44 @@
+@layout('layouts.app')
+
+@section('content')
+  @set('title', 'Your all round dev podcast')
+
+  <section class="section">
+    <div class="container">
+      <h2 class="subtitle is-3">Latest podcasts</h2>
+
+      <div class="columns is-multiline">
+        @each(podcast in podcasts)
+          <div class="column is-one-quarter">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-3by2">
+                  <a href="#">
+                    <img src="{{ assetsUrl(podcast.logo) }}" alt="Podcast logo">
+                  </a>
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <a href="#">
+                    {{ podcast.title }}
+                  </a>
+
+                  <div>
+                    <a href="#">
+                      <span class="tag">
+                        {{ podcast.category.name }}
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        @else
+          <p>No podcast to display</p>
+        @endeach
+      </div>
+    </div>
+  </section>
+@endsection

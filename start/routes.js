@@ -16,7 +16,7 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
-Route.get("/", "TestController.index").as('home');
+Route.get("/", "HomeController.index").as('home');
 
 Route.get("register", "Auth/RegisterController.showRegister");
 Route.post("register", "Auth/RegisterController.register").as('register');
