@@ -1,0 +1,46 @@
+@layout('layouts.app')
+
+@section('content')
+  @set('title', 'My Podcast')
+
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-three-fifths is-offset-one-fifth">
+          <h2 class="title">My Podcast</h2>
+
+          <hr>
+
+          @include('partials._notification')
+
+          @if(podcast)
+            <div class="media">
+              <figure class="media-left">
+                <div class="image is-96x96">
+                <img src="{{ assetsUrl(podcast.logo) }}" alt="Podcast logo">
+                </div>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <h3>{{ podcast.title }}</h3>
+                  <p>
+                    {{ podcast.description }}
+                  </p>
+                </div>
+              </div>
+              <div class="media-right">
+                <a href="#" class="button is-primary">
+                  Upload Episode
+                </a>
+              </div>
+            </div>
+          @else
+            <a class="button is-primary" href="{{ route('podcasts.create') }}">
+              Create Podcast
+            </a>
+          @endif
+        </div>
+      </div>
+    </div>
+  </section>
+@endsection
