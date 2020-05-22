@@ -33,3 +33,6 @@ Route.group(() => {
   Route.get('/password', 'UserController.showChangePassword').as('settings.password')
   Route.put('/password', 'UserController.updatePassword')
 }).prefix('/settings')
+Route.resource('podcasts', 'PodcastController')
+  .except(['index', 'show'])
+  .validator(new Map([[['podcasts.store'], ['StorePodcast']]]))
