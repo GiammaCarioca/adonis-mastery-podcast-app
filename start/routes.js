@@ -40,3 +40,4 @@ Route.resource('podcasts', 'PodcastController')
     [['podcasts.update'], ['UpdatePodcast']]
   ]))
 Route.get('my-podcast', 'UserController.myPodcast').as('myPodcast')
+Route.get('/:slug', 'PodcastController.show').as('podcasts.show')

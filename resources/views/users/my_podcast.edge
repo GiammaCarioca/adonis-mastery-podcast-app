@@ -30,6 +30,11 @@
 
                 <nav class="level">
                   <div class="level-left">
+                    <a class="level-item" href="{{ route('podcasts.show', { slug: podcast.slug }) }}" target="_blank">
+                      <span class="icon is-small">
+                        <i class="fas fa-external-link-alt"></i>
+                      </span>
+                    </a>
                     <a class="level-item" href="{{ route('podcasts.edit', { id: podcast.id }) }}">
                       <span class="icon is-small">
                         <i class="fas fa-edit"></i>

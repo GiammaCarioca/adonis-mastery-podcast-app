@@ -47,6 +47,15 @@ class PodcastController {
     return response.route('myPodcast')
   }
 
+  async show ({ params, view, request }) {
+    const podcast = await Podcast.query()
+      .where('slug', params.slug)
+      .with('podcaster')
+      .first()
+
+    return view.render('podcasts.show', { podcast: podcast.toJSON() })
+  }
+
   async edit ({ view, params }) {
     const podcast = await Podcast.findOrFail(params.id)
     const categories = await Category.pair('id', 'name')
@@ -74,7 +83,7 @@ class PodcastController {
         return response.redirect('back')
       }
 
-      podcast.logo = `uploads/logos/${logo.fileName}`
+      podcast.logo = `uploads/logo/${logo.fileName}`
     }
 
     podcast.title = data.title

@@ -1,0 +1,17 @@
+@layout('layouts.app')
+
+@section('content')
+  @set('title', podcast.title)
+
+  <section class="hero is-primary has-text-centered">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{ podcast.title }}
+        </h1>
+        <h3 class="subtitle is-6">Host: {{ podcast.podcaster.name }}</h3>
+        <p>{{ podcast.description }}</p>
+      </div>
+    </div>
+  </section>
+@endsection
