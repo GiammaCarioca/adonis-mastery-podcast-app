@@ -25,7 +25,7 @@
                   </a>
 
                   <div>
-                    <a href="#">
+                    <a href="{{ route('categories.show', { slug: podcast.category.slug }) }}">
                       <span class="tag">
                         {{ podcast.category.name }}
                       </span>

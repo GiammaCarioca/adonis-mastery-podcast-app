@@ -134,7 +134,7 @@ class PodcastController {
       size: '2mb'
     })
 
-    await logo.move(Helpers.publicPath('uploads/logos'), {
+    await logo.move(Helpers.publicPath('uploads/logo'), {
       name: `${uuidv4()}.${logo.subtype}`
     })
 
