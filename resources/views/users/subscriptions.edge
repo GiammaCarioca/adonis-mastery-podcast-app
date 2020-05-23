@@ -1,0 +1,41 @@
+@layout('layouts.app')
+
+@section('content')
+  @set('title', 'My Subscriptions')
+
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-three-fifths is-offset-one-fifth">
+          <h2 class="title">My Subscription</h2>
+
+          <hr>
+
+          @include('partials._notification')
+
+          <table class="table is-striped is-narrow is-hoverable is-fullwidth">
+            <tbody>
+              @each(podcast in subscriptions)
+                <tr>
+                  <td>
+                    <a href="{{ route('podcasts.show', { slug: podcast.slug }) }}">
+                      {{ podcast.title }}
+                    </a>
+                  </td>
+                  <td>
+                    <form action="{{ '/subscriptions/' + podcast.id + '?_method=DELETE' }}" method="post">
+                      {{ csrfField() }}
+                      <button type="submit" class="button is-danger is-outlined is-small is-pulled-right">Unsubscribe</button>
+                    </form>
+                  </td>
+                </tr>
+              @else
+                <p>You've not subscribed to any podcast yet!</p>
+              @endeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+@endsection

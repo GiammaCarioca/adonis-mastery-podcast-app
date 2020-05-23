@@ -40,6 +40,7 @@ Route.resource('podcasts', 'PodcastController')
     [['podcasts.update'], ['UpdatePodcast']]
   ]))
 Route.get('my-podcast', 'UserController.myPodcast').as('myPodcast')
+Route.get('/subscriptions', 'UserController.subscriptions').as('subscriptions')
 Route.group(() => {
   Route.post('/', 'SubscriptionController.subscribe').as('subscriptions.store')
   Route.delete('/:id', 'SubscriptionController.unSubscribe').as('subscriptions.destroy')

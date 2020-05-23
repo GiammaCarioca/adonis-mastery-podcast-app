@@ -54,8 +54,7 @@ class PodcastController {
       .with('podcaster')
       .first()
 
-      const subscriptions = await Database
-        .table('subscriptions')
+      const subscriptions = await Database.table('subscriptions')
         .where('podcast_id', podcast.id)
         .pluck('user_id')
 

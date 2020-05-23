@@ -10,6 +10,12 @@ class UserController {
     return view.render('users.my_podcast', { podcast })
   }
 
+  async subscriptions ({ view, auth }) {
+    const subscriptions = await auth.user.subscriptions().fetch()
+
+    return view.render('users.subscriptions', { subscriptions: subscriptions.toJSON() })
+  }
+
   showEditAccount ({ view }) {
     return view.render('users.account')
   }
