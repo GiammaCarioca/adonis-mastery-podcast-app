@@ -15,21 +15,34 @@
         @loggedIn
           <div style="padding-top: 25px">
             @if(auth.user.id !== podcast.user_id)
+              @if(subscriptions.includes(auth.user.id))
+              <form action="{{ '/subscriptions/' + podcast.id + '?_method=DELETE' }}" method="post">
+              @else
               <form action="{{ route('subscriptions.store') }}" method="post">
-                {{ csrfField() }}
 
                 <input type="hidden" name="podcast_id" value="{{ podcast.id }}">
 
-                <button type="submit" class="button is-info">
+              @endif
+
+                {{ csrfField() }}
+                <button type="submit" class="button{{ subscriptions.includes(auth.user.id) ? ' is-danger' : ' is-info' }}">
                   <span class="icon">
                     <i class="fas fa-rss"></i>
                   </span>
-                  <span>Subscribe</span>
+                  <span>{{ subscriptions.includes(auth.user.id) ? ' Unsubscribe' : ' Subscribe' }}</span>
                 </button>
               </form>
             @endif
           </div>
         @endloggedIn
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        @include('partials._notification')
       </div>
     </div>
   </section>
