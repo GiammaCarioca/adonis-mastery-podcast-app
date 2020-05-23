@@ -13,14 +13,14 @@
             <div class="card">
               <div class="card-image">
                 <figure class="image is-3by2">
-                  <a href="#">
+                  <a href="{{ route('podcasts.show', { slug: podcast.slug }) }}">
                     <img src="{{ assetsUrl(podcast.logo) }}" alt="Podcast logo">
                   </a>
                 </figure>
               </div>
               <div class="card-content">
                 <div class="content">
-                  <a href="#">
+                  <a href="{{ route('podcasts.show', { slug: podcast.slug }) }}">
                     {{ podcast.title }}
                   </a>
 

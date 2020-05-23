@@ -11,6 +11,25 @@
         </h1>
         <h3 class="subtitle is-6">Host: {{ podcast.podcaster.name }}</h3>
         <p>{{ podcast.description }}</p>
+
+        @loggedIn
+          <div style="padding-top: 25px">
+            @if(auth.user.id !== podcast.user_id)
+              <form action="{{ route('subscriptions.store') }}" method="post">
+                {{ csrfField() }}
+
+                <input type="hidden" name="podcast_id" value="{{ podcast.id }}">
+
+                <button type="submit" class="button is-info">
+                  <span class="icon">
+                    <i class="fas fa-rss"></i>
+                  </span>
+                  <span>Subscribe</span>
+                </button>
+              </form>
+            @endif
+          </div>
+        @endloggedIn
       </div>
     </div>
   </section>
