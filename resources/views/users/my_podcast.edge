@@ -35,6 +35,14 @@
                         <i class="fas fa-edit"></i>
                       </span>
                     </a>
+                    <a class="level-item" onclick="event.preventDefault(); document.getElementById('delete-podcast').submit();">
+                      <span class="icon is-small">
+                        <i class="fas fa-trash-alt"></i>
+                      </span>
+                    </a>
+                  <form id="delete-podcast" action="{{ '/podcasts/' + podcast.id + '?_method=DELETE'}}" method="post">
+                    {{ csrfField() }}
+                  </form>
                   </div>
                 </nav>
 
