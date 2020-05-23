@@ -1,0 +1,118 @@
+@layout('layouts.app')
+
+@section('content')
+  @set('title', 'Edit podcast')
+
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-three-fifths is-offset-one-fifth">
+          <h2 class="title has-text-centered">Edit podcast</h2>
+
+          @include('partials._notification')
+
+        <form action="{{ '/podcasts/' + podcast.id + '?_method=PUT' }}" method="post" enctype="multipart/form-data">
+          {{ csrfField() }}
+
+          <div class="field is-horizontal">
+            <div class="field-label">
+              <label for="" class="label">Title</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input
+                    type="text"
+                    class="input"
+                    name="title"
+                    value="{{ old('title', podcast.title) }}"
+                    placeholder="Podcast title"
+                  >
+                </div>
+
+                {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('title'), hasErrorFor('title')) }}
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label">
+              <label for="" class="label">Category</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select name="category_id">
+                      <option value="">Choose a category</option>
+                      @each((name, id) in categories)
+                        <option value="{{ id }}" {{ podcast.category_id == id ? 'selected' : '' }}>{{ name }}</option>
+                      @endeach
+                    </select>
+                  </div>
+                </div>
+
+                {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('category'), hasErrorFor('category')) }}
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label">
+              <label for="" class="label">Logo</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input
+                    type="file"
+                    class="input"
+                    name="logo"
+                  >
+                </div>
+
+                {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('logo'), hasErrorFor('logo')) }}
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label">
+              <label for="" class="label">Description</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <textarea
+                    class="textarea"
+                    name="description"
+                    rows="10"
+                    placeholder="Give your podcast a description"
+                  >
+                    {{ old('description', podcast.description) }}
+                  </textarea>
+                </div>
+
+                {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('description'), hasErrorFor('description')) }}
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label"></div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-primary">
+                      Update podcast
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+@endsection

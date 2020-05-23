@@ -35,5 +35,8 @@ Route.group(() => {
 }).prefix('/settings')
 Route.resource('podcasts', 'PodcastController')
   .except(['index', 'show'])
-  .validator(new Map([[['podcasts.store'], ['StorePodcast']]]))
+  .validator(new Map([
+    [['podcasts.store'], ['StorePodcast']],
+    [['podcasts.update'], ['UpdatePodcast']]
+  ]))
 Route.get('my-podcast', 'UserController.myPodcast').as('myPodcast')

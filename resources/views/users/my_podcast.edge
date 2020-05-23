@@ -27,6 +27,17 @@
                     {{ podcast.description }}
                   </p>
                 </div>
+
+                <nav class="level">
+                  <div class="level-left">
+                    <a class="level-item" href="{{ route('podcasts.edit', { id: podcast.id }) }}">
+                      <span class="icon is-small">
+                        <i class="fas fa-edit"></i>
+                      </span>
+                    </a>
+                  </div>
+                </nav>
+
               </div>
               <div class="media-right">
                 <a href="#" class="button is-primary">
