@@ -18,15 +18,15 @@ const Route = use("Route");
 
 Route.get("/", "HomeController.index").as('home');
 
-Route.get("register", "Auth/RegisterController.showRegister");
-Route.post("register", "Auth/RegisterController.register").as('register');
-Route.post("logout", "Auth/LogoutController.logout").as('logout');
-Route.get("login", "Auth/LoginController.showLogin");
-Route.post("login", "Auth/LoginController.login").as('login');
-Route.get("password/reset", "Auth/PasswordResetController.showLinkRequestForm");
-Route.post("password/email", "Auth/PasswordResetController.sendResetLinkEmail");
-Route.get("password/reset/:token", "Auth/PasswordResetController.showResetForm");
-Route.post("password/reset", "Auth/PasswordResetController.reset");
+Route.get("register", "Auth/RegisterController.showRegister").middleware(['guest'])
+Route.post("register", "Auth/RegisterController.register").as('register')
+Route.post("logout", "Auth/LogoutController.logout").as('logout')
+Route.get("login", "Auth/LoginController.showLogin").middleware(['guest'])
+Route.post("login", "Auth/LoginController.login").as('login')
+Route.get("password/reset", "Auth/PasswordResetController.showLinkRequestForm").middleware(['guest'])
+Route.post("password/email", "Auth/PasswordResetController.sendResetLinkEmail")
+Route.get("password/reset/:token", "Auth/PasswordResetController.showResetForm").middleware(['guest'])
+Route.post("password/reset", "Auth/PasswordResetController.reset")
 Route.group(() => {
   Route.get('/account', 'UserController.showEditAccount').as('settings.account')
   Route.put('/account', 'UserController.updateAccount')
