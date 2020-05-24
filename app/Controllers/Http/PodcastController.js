@@ -52,7 +52,7 @@ class PodcastController {
     const podcast = await Podcast.query()
       .where('slug', params.slug)
       .with('podcaster')
-      .first()
+      .firstOrFail()
 
       const subscriptions = await Database.table('subscriptions')
         .where('podcast_id', podcast.id)
