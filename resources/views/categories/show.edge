@@ -11,7 +11,7 @@
             <p class="panel-heading">Categories</p>
 
             @each(category in categories)
-          <a class="panel-block" href="{{ route('categories.show', { slug: category.slug }) }}">
+          <a class="panel-block{{ request.match(['/categories/' + category.slug]) ? ' is-active' : '' }}" href="{{ route('categories.show', { slug: category.slug }) }}">
                 {{ category.name }} ({{ category.__meta__.podcasts_count }})
               </a>
             @endeach
