@@ -1,0 +1,95 @@
+@layout('layouts.app')
+
+@section('content')
+  @set('title', 'Upload an episode')
+
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-three-fifths is-offset-one-fifth">
+          <h2 class="title has-text-centered">Upload an episode</h2>
+
+          @include('partials._notification')
+
+          <form action="{{ route('episodes.store', { slug: podcast.slug }) }}" method="post" enctype="multipart/form-data">
+          {{ csrfField() }}
+
+            <input type="hidden" name="podcast_id" value="{{ podcast.id }}">
+
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <label for="" class="label">Title</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input
+                      type="text"
+                      class="input"
+                      name="title"
+                      value="{{ old('title', '') }}"
+                      placeholder="Podcast title"
+                    >
+                  </div>
+
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('title'), hasErrorFor('title')) }}
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <label for="" class="label">Audio</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input
+                      type="file"
+                      class="input"
+                      name="audio">
+                  </div>
+
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('audio'), hasErrorFor('audio')) }}
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <label for="" class="label">Summary</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <textarea
+                      class="textarea"
+                      name="summary"
+                      rows="10"
+                      placeholder="A summary of the episode"
+                    >{{ old('summary', '')}}</textarea>
+                  </div>
+
+                  {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('summary'), hasErrorFor('summary')) }}
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label"></div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-primary">
+                      Upload episode
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+@endsection
