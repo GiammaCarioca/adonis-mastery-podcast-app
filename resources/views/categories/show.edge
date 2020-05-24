@@ -20,7 +20,7 @@
         <div class="column is-9">
           <div class="box">
             <div class="columns is-multiline">
-              @each(podcast in podcasts)
+              @each(podcast in podcasts.data)
                 <div class="column is-one-third">
                   <div class="card">
                     <div class="card-image">
@@ -43,6 +43,11 @@
                 <p>No podcasts to display.</p>
               @endeach
             </div>
+
+            @if(podcasts.data.length)
+              <hr>
+              @!component('components.pagination', pagination = podcasts)
+            @endif
           </div>
         </div>
       </div>

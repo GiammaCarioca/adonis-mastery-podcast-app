@@ -8,7 +8,7 @@
       <h2 class="subtitle is-3">Latest podcasts</h2>
 
       <div class="columns is-multiline">
-        @each(podcast in podcasts)
+        @each(podcast in podcasts.data)
           <div class="column is-one-quarter">
             <div class="card">
               <div class="card-image">
@@ -39,6 +39,11 @@
           <p>No podcast to display</p>
         @endeach
       </div>
+
+      @if(podcasts.data.length)
+        <hr>
+        @!component('components.pagination', pagination = podcasts)
+      @endif
     </div>
   </section>
 @endsection

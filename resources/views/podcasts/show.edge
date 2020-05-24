@@ -46,7 +46,7 @@
 
         <h2 class="subtitle is-3 has-text-centered">Latest episodes</h2>
 
-        @each(episode in episodes)
+        @each(episode in episodes.data)
           <div class="media">
             <figure class="media-left">
               <div class="image is-96x96">
@@ -80,6 +80,11 @@
         @else
           <p>No episodes uploaded for this podcast.</p>
         @endeach
+
+        @if(episodes.data.length)
+          <hr>
+          @!component('components.pagination', pagination = episodes)
+        @endif
       </div>
     </div>
   </section>
