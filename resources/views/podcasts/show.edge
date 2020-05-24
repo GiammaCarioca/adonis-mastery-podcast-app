@@ -43,6 +43,43 @@
     <div class="columns">
       <div class="column is-half is-offset-one-quarter">
         @include('partials._notification')
+
+        <h2 class="subtitle is-3 has-text-centered">Latest episodes</h2>
+
+        @each(episode in episodes)
+          <div class="media">
+            <figure class="media-left">
+              <div class="image is-96x96">
+                <img src="{{ assetsUrl(podcast.logo) }}" alt="Podcast logo">
+              </div>
+            </figure>
+            <div class="media-content">
+              <div class="content">
+                <h4>Episode {{ ($loop.total - $loop.index) }}: {{ episode.title }}</h4>
+                <p>
+                  {{ episode.summary }}
+                </p>
+              </div>
+
+              <nav class="level">
+                <div class="level-left">
+                  <div class="level-item">
+                    <audio src="{{ assetsUrl(episode.audio) }}" controls>
+                      Your browser does not support the <code>audio</code> element.
+                    </audio>
+                  </div>
+                  <a class="level-item" href="{{ route('episodes.download', { slug: podcast.slug, id: episode.id }) }}">
+                    <span class="icon is-large">
+                      <i class="fas fa-download"></i>
+                    </span>
+                  </a>
+                </div>
+              </nav>
+            </div>
+          </div>
+        @else
+          <p>No episodes uploaded for this podcast.</p>
+        @endeach
       </div>
     </div>
   </section>

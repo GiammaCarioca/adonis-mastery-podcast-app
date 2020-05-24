@@ -58,7 +58,13 @@ class PodcastController {
         .where('podcast_id', podcast.id)
         .pluck('user_id')
 
-    return view.render('podcasts.show', { podcast: podcast.toJSON(), subscriptions })
+      const episodes = await podcast.episodes().orderBy('id', 'desc').fetch()
+
+    return view.render('podcasts.show', {
+      podcast: podcast.toJSON(),
+      subscriptions,
+      episodes: episodes.toJSON()
+    })
   }
 
   async edit ({ view, params }) {
