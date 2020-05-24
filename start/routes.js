@@ -38,7 +38,11 @@ Route.resource('podcasts', 'PodcastController')
   .validator(new Map([
     [['podcasts.store'], ['StorePodcast']],
     [['podcasts.update'], ['UpdatePodcast']]
-  ])).middleware(new Map([[['create', 'store', 'update', 'destroy'], ['auth']]]))
+  ]))
+  .middleware(new Map([
+    [['create', 'store', 'update', 'destroy'], ['auth']],
+    [['create', 'store'], ['canOnlyCreateAPodcast']]
+  ]))
 Route.get('my-podcast', 'UserController.myPodcast').as('myPodcast').middleware(['auth'])
 Route.get('/subscriptions', 'UserController.subscriptions').as('subscriptions').middleware(['auth'])
 Route.group(() => {
